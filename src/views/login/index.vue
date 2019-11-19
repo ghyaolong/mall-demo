@@ -24,13 +24,18 @@
         </el-form-item>
 
         <el-form-item prop="password">
-            <el-input name="password"
-                      :type="pwdType"
-                      v-model="loginForm.password"
-                      autocomplete="on"
-                      aria-placeholder="请输入密码">
-              <span slot="prefix"></span>
-            </el-input>
+          <el-input name="password"
+                    :type="pwdType"
+                    v-model="loginForm.password"
+                    autocomplete="on"
+                    aria-placeholder="请输入密码">
+            <span slot="prefix">
+              <svg-icon icon-class="password" class="color-main"></svg-icon>
+            </span>
+            <span slot="suffix" @click="showPwd">
+              <svg-icon icon-class="eye" class="color-main"></svg-icon>
+          </span>
+          </el-input>
         </el-form-item>
 
       </el-form>
@@ -40,18 +45,40 @@
 </template>
 
 <script>
-    export default {
-        name: "login",
-        data() {
-            return{
-                loginForm: {
-                    username: 'admin',
-                    password: '123456',
-                },
-                pwdType: 'password'
-            }
+  import {isvalidUsername} from '@/utils/validate';
+
+  export default {
+    name: "login",
+    data() {
+      const validateUsername = (rule, value, callback) => {
+        if (!isvalidUsername(value)) {
+          callback(new Error('请输入正确的用户名'));
+        } else {
+          callback();
         }
+      };
+
+      const validatePass = (rule, value, callback) => {
+        if (value.length < 3) {
+          callback(new Error('密码不能小于3位'))
+        } else {
+          callback()
+        }
+      };
+
+      return {
+        loginForm: {
+          username: 'admin',
+          password: '123456',
+        },
+        loginRules: {
+          username: [{required: true, trigger: 'blur', validator: validateUsername}],
+          password: [{required: true, trigger: 'blur', validator: validatePass}]
+        },
+        pwdType: 'password'
+      }
     }
+  }
 </script>
 
 <style scoped>
