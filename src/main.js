@@ -13,6 +13,9 @@ Vue.use(ElementUI, { locale })
 
 Vue.config.productionTip = false
 
+//引入svg-icon
+import '@/icons' // icon
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

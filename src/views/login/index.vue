@@ -7,7 +7,7 @@
                ref="loginForm"
                label-position="left">
         <div style="text-align: center">
-          <!--<svg-icon icon-class="login-mall" style="width: 56px;height: 56px;color: #409EFF"></svg-icon>-->
+          <svg-icon icon-class="login-mall" style="width: 56px;height: 56px;color: #409EFF"></svg-icon>
         </div>
         <h2 class="login-title color-main">mall-admin-web</h2>
 
@@ -18,7 +18,7 @@
                     autoComplete="on"
                     placeholder="请输入用户名">
               <span slot="prefix">
-            <!--<svg-icon icon-class="user" class="color-main"></svg-icon>-->
+            <svg-icon icon-class="user" class="color-main"></svg-icon>
           </span>
           </el-input>
         </el-form-item>
@@ -46,6 +46,7 @@
 
 <script>
   import {isvalidUsername} from '@/utils/validate';
+  import login_center_bg from '@/assets/images/login_center_bg.png'
 
   export default {
     name: "login",
@@ -75,7 +76,17 @@
           username: [{required: true, trigger: 'blur', validator: validateUsername}],
           password: [{required: true, trigger: 'blur', validator: validatePass}]
         },
+        login_center_bg,
         pwdType: 'password'
+      }
+    },
+    methods: {
+      showPwd() {
+        if (this.pwdType === 'password') {
+          this.pwdType = ''
+        } else {
+          this.pwdType = 'password'
+        }
       }
     }
   }
@@ -93,5 +104,11 @@
 
   .login-title {
     text-align: center;
+  }
+
+  .total-icon {
+    color: #409EFF;
+    width: 60px;
+    height: 60px;
   }
 </style>
